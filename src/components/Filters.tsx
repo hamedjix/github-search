@@ -1,12 +1,4 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormLabel,
-  HStack,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { Flex, FormControl, FormLabel, Select } from "@chakra-ui/react";
 import { useSearchParams } from "context/filtersContext";
 import languages from "utils/languages.json";
 import Pagination from "./Pagination";
@@ -14,7 +6,7 @@ import Pagination from "./Pagination";
 type Props = {};
 
 const Filters = (props: Props) => {
-  const { filters, updateFilters } = useSearchParams();
+  const { updateFilters } = useSearchParams();
   const onLanguageChange = (
     value: string,
     type: "language" | "order" | "sort"
@@ -71,15 +63,15 @@ const Filters = (props: Props) => {
         <FormControl display="flex" alignItems="center">
           <FormLabel>Order:</FormLabel>
           <Select
+            defaultValue="desc"
             minW={170}
+            h={50}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
               onLanguageChange(e.target.value, "order")
             }
           >
-            <option value="asc">Acs</option>
-            <option value="desc" defaultChecked>
-              Dcs
-            </option>
+            <option value="asc">Ascending</option>
+            <option value="desc">Descending</option>
           </Select>
         </FormControl>
       </Flex>

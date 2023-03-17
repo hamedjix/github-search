@@ -1,7 +1,5 @@
-import { Button, HStack, Tag, Text } from "@chakra-ui/react";
-import { useQueryClient } from "@tanstack/react-query";
+import { Button, HStack } from "@chakra-ui/react";
 import { useSearchParams } from "context/filtersContext";
-import React from "react";
 
 type Props = {};
 

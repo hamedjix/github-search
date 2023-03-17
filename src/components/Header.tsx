@@ -7,7 +7,7 @@ import ToggleThemeButton from "./ToggleThemeButton";
 type Props = {};
 
 const Header = (props: Props) => {
-  const { isLoggedIn, user, setUserStatus } = useAuth();
+  const { isLoggedIn, user } = useAuth();
   return (
     <Card p={5}>
       <Flex align="center" justify="space-between">
