@@ -1,10 +1,12 @@
 import { Button, HStack } from "@chakra-ui/react";
 import { useSearchParams } from "context/filtersContext";
+import { useGithubRepos } from "services";
 
 type Props = {};
 
 const Pagination = (props: Props) => {
   const { filters, updateFilters } = useSearchParams();
+  const { isLoading } = useGithubRepos();
   const nextPage = () => {
     updateFilters({ page: (filters.page as number) + 1 });
   };
@@ -16,6 +18,7 @@ const Pagination = (props: Props) => {
   return (
     <HStack spacing={2}>
       <Button
+        isLoading={isLoading}
         colorScheme="linkedin"
         disabled={(filters.page as number) < 2}
         onClick={prevPage}
@@ -23,7 +26,7 @@ const Pagination = (props: Props) => {
         Prev
       </Button>
       <Button>Page: {filters.page}</Button>
-      <Button colorScheme="linkedin" onClick={nextPage}>
+      <Button isLoading={isLoading} colorScheme="linkedin" onClick={nextPage}>
         Next
       </Button>
     </HStack>

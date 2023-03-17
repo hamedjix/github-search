@@ -1,4 +1,11 @@
-import { Flex, FormControl, FormLabel, Select } from "@chakra-ui/react";
+import {
+  Flex,
+  FormControl,
+  FormLabel,
+  HStack,
+  Select,
+  useColorModeValue,
+} from "@chakra-ui/react";
 import { useSearchParams } from "context/filtersContext";
 import languages from "utils/languages.json";
 import Pagination from "./Pagination";
@@ -7,7 +14,7 @@ type Props = {};
 
 const Filters = (props: Props) => {
   const { updateFilters } = useSearchParams();
-  const onLanguageChange = (
+  const onFilterChange = (
     value: string,
     type: "language" | "order" | "sort"
   ) => {
@@ -27,16 +34,27 @@ const Filters = (props: Props) => {
         break;
     }
   };
+  const bg = useColorModeValue("#EEF1FF", "#1A202C");
 
   return (
-    <Flex p={4} justify="space-between">
-      <Flex justify="space-between" gap={10}>
+    <Flex
+      className="sticky"
+      p={4}
+      justify="space-between"
+      overflowX="auto"
+      bg={bg}
+    >
+      <HStack spacing={5}>
         <FormControl display="flex" alignItems="center">
-          <FormLabel>Language:</FormLabel>
+          <FormLabel fontSize={16} my={0}>
+            Language:
+          </FormLabel>
           <Select
-            minW={170}
+            size="sm"
+            w={170}
+            minW={120}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              onLanguageChange(e.target.value, "language")
+              onFilterChange(e.target.value, "language")
             }
           >
             {languages.map((lang) => (
@@ -47,11 +65,15 @@ const Filters = (props: Props) => {
           </Select>
         </FormControl>
         <FormControl display="flex" alignItems="center">
-          <FormLabel wordBreak="keep-all">Sort:</FormLabel>
+          <FormLabel fontSize={16} my={0}>
+            Sort:
+          </FormLabel>
           <Select
-            minW={170}
+            size="sm"
+            w={170}
+            minW={120}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              onLanguageChange(e.target.value, "sort")
+              onFilterChange(e.target.value, "sort")
             }
           >
             <option value="stars">Stars</option>
@@ -61,20 +83,23 @@ const Filters = (props: Props) => {
           </Select>
         </FormControl>
         <FormControl display="flex" alignItems="center">
-          <FormLabel>Order:</FormLabel>
+          <FormLabel fontSize={16} my={0}>
+            Order:
+          </FormLabel>
           <Select
             defaultValue="desc"
-            minW={170}
-            h={50}
+            size="sm"
+            w={170}
+            minW={120}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              onLanguageChange(e.target.value, "order")
+              onFilterChange(e.target.value, "order")
             }
           >
             <option value="asc">Ascending</option>
             <option value="desc">Descending</option>
           </Select>
         </FormControl>
-      </Flex>
+      </HStack>
       <Pagination />
     </Flex>
   );
