@@ -7,12 +7,12 @@ import {
   Box,
   Heading,
   Text,
-  IconButton,
   CardFooter,
   HStack,
   Tag,
   TagLeftIcon,
   TagLabel,
+  Link,
 } from "@chakra-ui/react";
 import { VscRepoForked, VscStarEmpty, VscQuestion } from "react-icons/vsc";
 
@@ -22,26 +22,28 @@ type Props = {
 
 const RepoCard = ({ repo }: Props) => {
   return (
-    <Card maxW="md">
-      <CardHeader>
+    <Card h="60" overflow="hidden">
+      <CardHeader pb={1}>
         <Flex gap={4}>
-          <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
+          <Flex flex="1" gap="4" alignItems="center">
             <Avatar name={repo.owner.login} src={repo.owner.avatar_url} />
             <Box>
-              <Heading size="sm">{repo.name}</Heading>
-              <Text>user: {repo.owner.login}</Text>
+              <Heading size="sm">{repo.owner.login}</Heading>
+              <Link href={repo.owner.html_url} textDecor="none">
+                view profile
+              </Link>
             </Box>
           </Flex>
-          <IconButton
-            variant="ghost"
-            colorScheme="gray"
-            aria-label="See menu"
-            icon={<VscRepoForked />}
-          />
+          <Text>{repo.language}</Text>
         </Flex>
       </CardHeader>
-      <CardBody>
-        <Text>
+      <CardBody h={20}>
+        <Link href={repo.html_url}>
+          <Heading size="md" mb={3}>
+            {repo.name}
+          </Heading>
+        </Link>
+        <Text fontSize={15} noOfLines={2}>
           {(repo.description && repo.description.slice(0, 140)) ||
             "No description given."}
         </Text>

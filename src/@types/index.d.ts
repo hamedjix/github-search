@@ -1,13 +1,18 @@
 // Search Filters
 interface ISearchFilters {
   language?: string;
+  sort?: string;
+  order?: string;
+  page?: number;
 }
 
 //Request Params
 interface IRequestParams {
   q: string;
-  sort: "stars";
-  order: "desc";
+  sort: string;
+  order: string;
+  per_page: number;
+  page: number;
 }
 
 // API Response

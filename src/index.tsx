@@ -7,7 +7,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import { theme } from "./theme";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { SearchFilterProvider } from "context/filtersContext";
+import SearchFilterProvider from "context/filtersContext";
+import AuthProvider from "context/auth";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -23,16 +24,18 @@ export const queryClient = new QueryClient({
 });
 root.render(
   <React.StrictMode>
-    <Router>
-      <QueryClientProvider client={queryClient}>
-        <ChakraProvider theme={theme}>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-          <SearchFilterProvider>
-            <App />
-          </SearchFilterProvider>
-        </ChakraProvider>
-      </QueryClientProvider>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <QueryClientProvider client={queryClient}>
+          <ChakraProvider theme={theme}>
+            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+            <SearchFilterProvider>
+              <App />
+            </SearchFilterProvider>
+          </ChakraProvider>
+        </QueryClientProvider>
+      </Router>
+    </AuthProvider>
   </React.StrictMode>
 );
 reportWebVitals();

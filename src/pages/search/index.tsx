@@ -1,6 +1,7 @@
-import { Box, Grid, GridItem, Text } from "@chakra-ui/react";
+import { Box, Center, Grid, GridItem } from "@chakra-ui/react";
 import { useQuery } from "@tanstack/react-query";
-import Header from "components/Header";
+import Filters from "components/Filters";
+import Loader from "components/Loader/Loader";
 import RepoCard from "components/RepoCard";
 import { useSearchParams } from "context/filtersContext";
 import { getRepos } from "services";
@@ -13,30 +14,28 @@ const Search = (props: Props) => {
   const { data: repos, isLoading } = useQuery(
     ["Repos", filters],
     ({ queryKey }) => {
-      console.log(queryKey);
       return getRepos(queryKey[1] as ISearchFilters);
     }
   );
   return (
-    <Box>
-      <Header />
+    <Box flex="1">
+      <Filters />
 
-      {!isLoading && Array.isArray(repos) ? (
-        <Grid
-          p={4}
-          templateColumns="repeat(3, 1fr)"
-          gap={6}
-          position="relative"
-        >
-          {repos.map((repo) => (
-            <GridItem key={repo.id} w="100%">
-              <RepoCard repo={repo} />
-            </GridItem>
-          ))}
-        </Grid>
-      ) : (
-        <Text>Loading....</Text>
-      )}
+      <Box position="relative">
+        {!isLoading && Array.isArray(repos) ? (
+          <Grid p={4} templateColumns="repeat(3, minmax(200px, 1fr) )" gap={6}>
+            {repos.map((repo) => (
+              <GridItem key={repo.id} w="100%">
+                <RepoCard repo={repo} />
+              </GridItem>
+            ))}
+          </Grid>
+        ) : (
+          <Center position="absolute" w="full" top={52}>
+            <Loader />
+          </Center>
+        )}
+      </Box>
     </Box>
   );
 };

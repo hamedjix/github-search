@@ -1,42 +1,26 @@
-import {
-  Button,
-  Divider,
-  Flex,
-  FormControl,
-  FormLabel,
-  Select,
-  Icon,
-  Heading,
-  Card,
-} from "@chakra-ui/react";
+import { Flex, Icon, Heading, Card, HStack, Text } from "@chakra-ui/react";
+import { useAuth } from "context/auth";
 import { IoRocket } from "react-icons/io5";
-import LanguageFilter from "./LanguageFilter";
+import SignOutButton from "./SignOutButton";
 import ToggleThemeButton from "./ToggleThemeButton";
 
 type Props = {};
 
 const Header = (props: Props) => {
+  const { isLoggedIn, user, setUserStatus } = useAuth();
   return (
     <Card p={5}>
       <Flex align="center" justify="space-between">
         <Flex align={"center"}>
-          <Icon boxSize={50} as={IoRocket} />
-          <Heading size={"lg"}>Search Github Repos</Heading>
+          <Icon boxSize={42} as={IoRocket} />
+          <Heading size={"md"}>Search Github Repos</Heading>
         </Flex>
-        <ToggleThemeButton />
+        <HStack>
+          {user ? <Text>Hi {user} !</Text> : <></>}
+          {isLoggedIn ? <SignOutButton /> : <></>}
+          <ToggleThemeButton />
+        </HStack>
       </Flex>
-      <Divider my={3} />
-      <FormControl
-        w={"100%"}
-        onSubmit={(values) => {
-          console.log(values);
-        }}
-      >
-        <LanguageFilter />
-        <Flex align={"center"}>
-          <Button type="submit">Search</Button>
-        </Flex>
-      </FormControl>
     </Card>
   );
 };

@@ -4,15 +4,21 @@ interface IFilterContext {
   filters: ISearchFilters;
   updateFilters: (p: ISearchFilters) => void;
 }
+const initialState: ISearchFilters = {
+  language: "",
+  order: "desc",
+  sort: "stars",
+  page: 1,
+};
 export const FilterContext = createContext<IFilterContext>({
-  filters: {},
+  filters: initialState,
   updateFilters: () => {},
 });
 
-export const SearchFilterProvider = ({ children }: { children: ReactNode }) => {
-  const [filters, setFilters] = useState<ISearchFilters>({});
+const SearchFilterProvider = ({ children }: { children: ReactNode }) => {
+  const [filters, setFilters] = useState<ISearchFilters>(initialState);
   const updateFilters = (p: ISearchFilters) => {
-    setFilters(p);
+    setFilters((prev) => ({ ...prev, ...p }));
   };
   return (
     <FilterContext.Provider value={{ filters, updateFilters }}>
@@ -24,3 +30,6 @@ export const SearchFilterProvider = ({ children }: { children: ReactNode }) => {
 export const useSearchParams = () => {
   return useContext(FilterContext);
 };
+FilterContext.displayName = "Filters Context";
+
+export default SearchFilterProvider;
