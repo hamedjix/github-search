@@ -2,7 +2,6 @@ import {
   Flex,
   Icon,
   Heading,
-  Card,
   HStack,
   Text,
   useColorModeValue,

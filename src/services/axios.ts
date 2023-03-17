@@ -1,7 +1,7 @@
 import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
 
 const API_URL = "https://api.github.com";
-const token = "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";
+const token = undefined;
 const Axios = axios.create({
   baseURL: API_URL,
 });

@@ -1,4 +1,10 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 interface IFilterContext {
   filters: ISearchFilters;
@@ -17,6 +23,9 @@ export const FilterContext = createContext<IFilterContext>({
 
 const SearchFilterProvider = ({ children }: { children: ReactNode }) => {
   const [filters, setFilters] = useState<ISearchFilters>(initialState);
+  useEffect(() => {
+    console.log(filters);
+  }, [filters]);
   const updateFilters = (p: ISearchFilters) => {
     setFilters((prev) => ({ ...prev, ...p }));
   };

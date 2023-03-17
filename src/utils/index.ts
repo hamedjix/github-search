@@ -15,6 +15,7 @@ export const paramGenerator: (filters: ISearchFilters) => IRequestParams = (
   transformedFilters.q = reposLanguage;
   transformedFilters.sort = filters.sort || "stars";
   transformedFilters.order = filters.order || "desc";
+  transformedFilters.page = filters.page || 1;
 
   return transformedFilters;
 };

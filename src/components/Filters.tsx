@@ -20,17 +20,22 @@ const Filters = (props: Props) => {
   ) => {
     switch (type) {
       case "language":
-        updateFilters({ language: value });
+        updateFilters({ language: value, page: 1 });
         break;
       case "sort":
-        updateFilters({ sort: value });
+        updateFilters({ sort: value, page: 1 });
         break;
       case "order":
-        updateFilters({ order: value });
+        updateFilters({ order: value, page: 1 });
         break;
 
       default:
-        updateFilters({ language: "javascript", sort: "stars", order: "desc" });
+        updateFilters({
+          language: "javascript",
+          sort: "stars",
+          order: "desc",
+          page: 1,
+        });
         break;
     }
   };
